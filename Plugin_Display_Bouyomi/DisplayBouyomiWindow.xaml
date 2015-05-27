@@ -8,7 +8,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        SizeToContent="WidthAndHeight"
+        SizeToContent="Height"
         SizeChanged="DisplayBouyomiWindow_SizeChanged"
         Title="棒読みちゃん表示管理" Top="{Binding WindowTop}" Left="{Binding WindowLeft}" Opacity="100" ShowInTaskbar="False" Topmost="True">
     <Window.Resources>

@@ -12,6 +12,7 @@ namespace Plugin_Display_Bouyomi
         public DisplayBouyomiWindow()
         {
             InitializeComponent();
+            Width = SystemParameters.PrimaryScreenWidth;
         }
 
         /// <summary>
