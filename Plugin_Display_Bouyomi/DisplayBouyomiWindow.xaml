@@ -10,7 +10,7 @@
         WindowStyle="None"
         SizeToContent="Height"
         SizeChanged="DisplayBouyomiWindow_SizeChanged"
-        Title="棒読みちゃん表示管理" Top="{Binding WindowTop}" Left="{Binding WindowLeft}" Opacity="100" ShowInTaskbar="False" Topmost="True">
+        Title="読み上げ表示" Top="{Binding WindowTop}" Left="{Binding WindowLeft}" Opacity="100" ShowInTaskbar="False" Topmost="True">
     <Window.Resources>
         <Style x:Key="customStyle"  TargetType="TextBlock">
             <Setter Property="Foreground" Value="{Binding Setting.FontColor}"></Setter>

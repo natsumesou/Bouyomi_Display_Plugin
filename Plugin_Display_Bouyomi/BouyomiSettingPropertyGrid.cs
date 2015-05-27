@@ -67,6 +67,10 @@ namespace Plugin_Display_Bouyomi
             this.a = color.A;
         }
 
+        /// <summary>
+        /// フォーマットはToString参照
+        /// </summary>
+        /// <param name="color"></param>
         public CustomColor(string color) : this()
         {
             String[] v = color.Split(new char[] { ' ' });
@@ -74,14 +78,6 @@ namespace Plugin_Display_Bouyomi
             this.g = int.Parse(v[1]);
             this.b = int.Parse(v[2]);
             this.a = int.Parse(v[3]);
-        }
-
-        public CustomColor(int r, int g, int b, int a) : this()
-        {
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            this.a = a;
         }
 
         public override string ToString()
@@ -112,13 +108,7 @@ namespace Plugin_Display_Bouyomi
                 }
                 else
                 {
-                    try {
-                        c = new CustomColor((String)value);
-                    }
-                    catch(FormatException)
-                    {
-                        c = new CustomColor();
-                    }
+                    c = new CustomColor((String)value);
                 }
                 return c.ToString();
             }
@@ -163,14 +153,8 @@ namespace Plugin_Display_Bouyomi
                 c = new CustomColor();
             } else
             {
-                try
-                {
-                    c = new CustomColor((String)e.Value);
-                }
-                catch (FormatException)
-                {
-                    c = new CustomColor();
-                }
+                c = new CustomColor((String)e.Value);
+
             }
 
             Color color = c.ToColor();
