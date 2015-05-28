@@ -22,6 +22,11 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <TextBlock Text="{Binding BouyomiMessage}" Foreground="{Binding Setting.BlurColor}" FontSize="{Binding Setting.FontSize}" FontWeight="Bold" TextWrapping="Wrap">
+            <TextBlock.Effect>
+                <BlurEffect Radius="10" KernelType="Box"/>
+            </TextBlock.Effect>
+        </TextBlock>
         <TextBlock Text="{Binding BouyomiMessage}" FontSize="{Binding Setting.FontSize}" FontWeight="Bold" TextWrapping="Wrap" Style="{StaticResource customStyle}">
         </TextBlock>
     </Grid>

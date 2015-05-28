@@ -1,4 +1,6 @@
 ﻿using FNF.XmlSerializerSetting;
+using System;
+using System.Drawing;
 
 namespace Plugin_Display_Bouyomi
 {
@@ -11,6 +13,16 @@ namespace Plugin_Display_Bouyomi
         }
         public double FontSize { get; set; } = 60f;
         public string FontColor { get; set; } = "#FF0000";
+        public string BlurColor { get {
+                Color c = ColorTranslator.FromHtml(FontColor);
+                // 白に近い色の場合は黒を返す
+                if(Math.Abs(c.R - c.G) < 10 && Math.Abs(c.G - c.B) < 10 && Math.Abs(c.R - c.B) < 10 && c.R > Color.White.R/1.5)
+                {
+                    return ColorTranslator.ToHtml(Color.Black);
+                }
+                return ColorTranslator.ToHtml(Color.White);
+            }
+        }
         public Position position { get; set; } = Position.左上;
         public double DisplayTimeout { get; set; } = 5f;
         public double Timeout { get { return DisplayTimeout * 1000; } set { DisplayTimeout = value; } }
