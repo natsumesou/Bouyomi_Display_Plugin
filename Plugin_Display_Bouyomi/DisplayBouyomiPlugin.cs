@@ -8,7 +8,7 @@ namespace Plugin_Display_Bouyomi
     {
         public string Name { get; } = "読み上げ表示";
         public string Caption { get; } = "読み上げるテキストをデスクトップ上に表示するプラグイン";
-        public string Version { get; } = "1.0.1";
+        public string Version { get; } = "1.0.2";
 
         public DisplayBouyomiWindow window;
         private DisplayBouyomiSettings _settings;
