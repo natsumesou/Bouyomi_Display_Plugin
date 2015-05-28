@@ -126,9 +126,7 @@ namespace Plugin_Display_Bouyomi
         private void TextBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             TextBlock block = (TextBlock)FindName("MessageText");
-            TextBlock blurBlock = (TextBlock)FindName("BlurText");
             Brush beforeTextColor = block.Foreground;
-            Brush beforeBlurColor = blurBlock.Foreground;
 
             BouyomiDataContext dataContext = new BouyomiDataContext();
             if (BouyomiDataContext.IsValidInstance(this.DataContext))
@@ -147,12 +145,12 @@ namespace Plugin_Display_Bouyomi
                 return;
             }
             showMessageTimer = new Timer();
-            showMessageTimer.Elapsed += (sdr, args) => VisibleMessage(sdr, beforeTextColor, beforeBlurColor);
+            showMessageTimer.Elapsed += (sdr, args) => VisibleMessage(sdr, beforeTextColor);
             showMessageTimer.Interval = SHOW_INTERVAL;
             showMessageTimer.Start();
         }
 
-        private void VisibleMessage(object sender, Brush beforeColor, Brush beforeBlurColor)
+        private void VisibleMessage(object sender, Brush beforeColor)
         {
             Dispatcher.BeginInvoke(new Action(() => {
                 BouyomiDataContext dataContext = new BouyomiDataContext();
@@ -163,7 +161,7 @@ namespace Plugin_Display_Bouyomi
                     dataContext.WindowTop = ((BouyomiDataContext)this.DataContext).WindowTop;
                     dataContext.WindowLeft = ((BouyomiDataContext)this.DataContext).WindowLeft;
                     dataContext.Setting.FontColor = beforeColor.ToString();
-                    dataContext.Setting.BlurColor = beforeBlurColor.ToString();
+                    dataContext.Setting.BlurColor = null;
                 }
                 this.DataContext = dataContext;
                 this.showMessageTimer.Stop();

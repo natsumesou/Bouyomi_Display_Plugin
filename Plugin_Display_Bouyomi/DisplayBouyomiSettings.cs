@@ -15,7 +15,7 @@ namespace Plugin_Display_Bouyomi
         public string FontColor { get; set; } = "#FF0000";
         private string _BlurColor;
         public string BlurColor { get {
-                if(_BlurColor.Length > 0) { return _BlurColor; }
+                if(_BlurColor != null) { return _BlurColor; }
                 Color c = ColorTranslator.FromHtml(FontColor);
                 // 白に近い色の場合は黒を返す
                 if(Math.Abs(c.R - c.G) < 10 && Math.Abs(c.G - c.B) < 10 && Math.Abs(c.R - c.B) < 10 && c.R > Color.White.R/1.5)
