@@ -16,7 +16,7 @@ namespace Plugin_Display_Bouyomi
         public DisplayBouyomiWindow()
         {
             InitializeComponent();
-            Width = SystemParameters.PrimaryScreenWidth;
+            Width = SystemParameters.PrimaryScreenWidth - MARGIN * 2;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Plugin_Display_Bouyomi
             if (BouyomiDataContext.IsValidInstance(this.DataContext))
             {
                 dataContext.WindowTop = ((BouyomiDataContext)this.DataContext).WindowTop;
-                dataContext.WindowLeft = ((BouyomiDataContext)this.DataContext).WindowLeft;
+                dataContext.TextAlignment = ((BouyomiDataContext)this.DataContext).TextAlignment;
             }
             this.DataContext = dataContext;
             SetHideMessageTimer(setting.Timeout);
@@ -52,7 +52,7 @@ namespace Plugin_Display_Bouyomi
             dataContext.BouyomiMessage = ((BouyomiDataContext)this.DataContext).BouyomiMessage;
             dataContext.Setting = ((BouyomiDataContext)this.DataContext).Setting;
             dataContext.WindowTop = CalculateTop();
-            dataContext.WindowLeft = CalculateLeft();
+            dataContext.TextAlignment = CalculateAlignment();
             this.DataContext = dataContext;
         }
         
@@ -78,10 +78,11 @@ namespace Plugin_Display_Bouyomi
             return position;
         }
 
-        private double CalculateLeft()
+        private string CalculateAlignment()
         {
-            double position = MARGIN;
+            string position = "Left";
             double width = SystemParameters.PrimaryScreenWidth;
+            TextBlock block = (TextBlock)FindName("MessageText");
 
             switch (((BouyomiDataContext)this.DataContext).Setting.position)
             {
@@ -91,10 +92,10 @@ namespace Plugin_Display_Bouyomi
                     break;
                 case DisplayBouyomiSettings.Position.右上:
                 case DisplayBouyomiSettings.Position.右下:
-                    position = width - this.ActualWidth - MARGIN;
+                    position = "Right";
                     break;
                 case DisplayBouyomiSettings.Position.中央:
-                    position = width/2 - this.ActualWidth/2;
+                    position = "Center";
                     break;
             }
             return position;
@@ -134,7 +135,7 @@ namespace Plugin_Display_Bouyomi
                 dataContext.BouyomiMessage = ((BouyomiDataContext)this.DataContext).BouyomiMessage;
                 dataContext.Setting = ((BouyomiDataContext)this.DataContext).Setting;
                 dataContext.WindowTop = ((BouyomiDataContext)this.DataContext).WindowTop;
-                dataContext.WindowLeft = ((BouyomiDataContext)this.DataContext).WindowLeft;
+                dataContext.TextAlignment = ((BouyomiDataContext)this.DataContext).TextAlignment;
                 dataContext.Setting.FontColor = "Transparent";
                 dataContext.Setting.BlurColor = "Transparent";
             }
@@ -159,7 +160,7 @@ namespace Plugin_Display_Bouyomi
                     dataContext.BouyomiMessage = ((BouyomiDataContext)this.DataContext).BouyomiMessage;
                     dataContext.Setting = ((BouyomiDataContext)this.DataContext).Setting;
                     dataContext.WindowTop = ((BouyomiDataContext)this.DataContext).WindowTop;
-                    dataContext.WindowLeft = ((BouyomiDataContext)this.DataContext).WindowLeft;
+                    dataContext.TextAlignment = ((BouyomiDataContext)this.DataContext).TextAlignment;
                     dataContext.Setting.FontColor = beforeColor.ToString();
                     dataContext.Setting.BlurColor = null;
                 }

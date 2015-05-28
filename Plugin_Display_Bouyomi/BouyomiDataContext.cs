@@ -5,7 +5,7 @@
         public string BouyomiMessage { get; set; }
         public DisplayBouyomiSettings Setting { get; set; }
         public double WindowTop { get; set; }
-        public double WindowLeft { get; set; }
+        public string TextAlignment { get; set; }
 
         /// <summary>
         /// 処理によっては別の型がDataContextに入るので一度castして自分自身かどうかチェックする
