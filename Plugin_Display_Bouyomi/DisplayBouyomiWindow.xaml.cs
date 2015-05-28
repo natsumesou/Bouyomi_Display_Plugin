@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Windows;
 using System.Timers;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Plugin_Display_Bouyomi
 {
     public partial class DisplayBouyomiWindow : Window
     {
         private Timer hideMessageTimer;
+        private Timer showMessageTimer;
         private static double MARGIN = 10f;
+        private static double SHOW_INTERVAL = 300f;
 
         public DisplayBouyomiWindow()
         {
@@ -116,6 +120,53 @@ namespace Plugin_Display_Bouyomi
                     BouyomiSettingFormData = ""
                 };
                 this.hideMessageTimer.Stop();
+            }));
+        }
+
+        private void TextBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            TextBlock block = (TextBlock)FindName("MessageText");
+            TextBlock blurBlock = (TextBlock)FindName("BlurText");
+            Brush beforeTextColor = block.Foreground;
+            Brush beforeBlurColor = blurBlock.Foreground;
+
+            BouyomiDataContext dataContext = new BouyomiDataContext();
+            if (BouyomiDataContext.IsValidInstance(this.DataContext))
+            {
+                dataContext.BouyomiMessage = ((BouyomiDataContext)this.DataContext).BouyomiMessage;
+                dataContext.Setting = ((BouyomiDataContext)this.DataContext).Setting;
+                dataContext.WindowTop = ((BouyomiDataContext)this.DataContext).WindowTop;
+                dataContext.WindowLeft = ((BouyomiDataContext)this.DataContext).WindowLeft;
+                dataContext.Setting.FontColor = "Transparent";
+                dataContext.Setting.BlurColor = "Transparent";
+            }
+            this.DataContext = dataContext;
+
+            if (showMessageTimer != null && showMessageTimer.Enabled)
+            {
+                return;
+            }
+            showMessageTimer = new Timer();
+            showMessageTimer.Elapsed += (sdr, args) => VisibleMessage(sdr, beforeTextColor, beforeBlurColor);
+            showMessageTimer.Interval = SHOW_INTERVAL;
+            showMessageTimer.Start();
+        }
+
+        private void VisibleMessage(object sender, Brush beforeColor, Brush beforeBlurColor)
+        {
+            Dispatcher.BeginInvoke(new Action(() => {
+                BouyomiDataContext dataContext = new BouyomiDataContext();
+                if (BouyomiDataContext.IsValidInstance(this.DataContext))
+                {
+                    dataContext.BouyomiMessage = ((BouyomiDataContext)this.DataContext).BouyomiMessage;
+                    dataContext.Setting = ((BouyomiDataContext)this.DataContext).Setting;
+                    dataContext.WindowTop = ((BouyomiDataContext)this.DataContext).WindowTop;
+                    dataContext.WindowLeft = ((BouyomiDataContext)this.DataContext).WindowLeft;
+                    dataContext.Setting.FontColor = beforeColor.ToString();
+                    dataContext.Setting.BlurColor = beforeBlurColor.ToString();
+                }
+                this.DataContext = dataContext;
+                this.showMessageTimer.Stop();
             }));
         }
     }
