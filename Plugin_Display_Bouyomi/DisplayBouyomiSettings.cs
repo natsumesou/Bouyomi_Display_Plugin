@@ -12,7 +12,7 @@ namespace Plugin_Display_Bouyomi
             左上, 右上, 左下, 右下, 中央
         }
         public double FontSize { get; set; } = 60f;
-        public string FontColor { get; set; } = "#FF0000";
+        public string FontColor { get; set; } = "#000000";
         private string _BlurColor;
         public string BlurColor { get {
                 if(_BlurColor != null) { return _BlurColor; }
