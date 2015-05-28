@@ -13,9 +13,9 @@
         Title="読み上げ表示" Top="{Binding WindowTop}" Left="10" Margin="0 10 0 0" Opacity="100" ShowInTaskbar="False" Topmost="True">
     <Grid>
         <TextBlock x:Name="BlurText" Text="{Binding BouyomiMessage}" Foreground="{Binding Setting.BlurColor}" FontSize="{Binding Setting.FontSize}" TextAlignment="{Binding TextAlignment}" FontWeight="Bold" TextWrapping="Wrap" MouseEnter="TextBlock_MouseEnter">
-            <TextBlock.Effect>
-                <BlurEffect Radius="10" KernelType="Box"/>
-            </TextBlock.Effect>
+            <TextBlock.RenderTransform>
+                <TranslateTransform X="2" Y="2"/>
+            </TextBlock.RenderTransform>
         </TextBlock>
         <TextBlock x:Name="MessageText" Text="{Binding BouyomiMessage}" Foreground="{Binding Setting.FontColor}" FontSize="{Binding Setting.FontSize}" TextAlignment="{Binding TextAlignment}" FontWeight="Bold" TextWrapping="Wrap" MouseEnter="TextBlock_MouseEnter">
         </TextBlock>
